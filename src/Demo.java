@@ -1,6 +1,7 @@
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.ListIterator;
 
 public class Demo {
     public static void main(String[] args) {
@@ -22,6 +23,10 @@ public class Demo {
         placesToVisit.remove(4);
         printCities(placesToVisit);
 
+        addInOrder("Dutch",placesToVisit);
+        printCities(placesToVisit);
+
+
 
 
 
@@ -35,6 +40,30 @@ public class Demo {
             System.out.println("Now visiting "+place.next());//METHOD TO USE WITH ITERATOR
         }
         System.out.println("===============================================================================");
+
+    }
+
+    private static boolean addInOrder(String newCity,LinkedList<String> currentCities){
+        ListIterator<String> stringListIterator=currentCities.listIterator();// WE USE LISTITERRATOR TO USE Previous()
+        while(stringListIterator.hasNext()){
+            int compareValue=stringListIterator.next().compareTo(newCity);//not use of next
+            if(compareValue==0){
+                return false;
+            }else if(compareValue>0){
+                stringListIterator.previous();//THE reason to use ListIterator over Iterator
+                stringListIterator.add(newCity);
+                return true;
+
+
+            }else if(compareValue<0){
+
+
+                stringListIterator.next();
+            }
+        }
+
+        stringListIterator.add(newCity);
+        return true;
 
     }
 }
@@ -55,3 +84,8 @@ public class Demo {
 // Iterator<String> place=list.iterator() //HOW TO USE AN ITERATOR
 //place.hasNext()
 //place.next()
+
+
+//===================LISTITERATOR=================
+
+//we use LISTITERATOR because we want previous()
